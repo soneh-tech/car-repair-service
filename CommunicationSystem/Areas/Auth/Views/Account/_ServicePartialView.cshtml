@@ -1,0 +1,12 @@
+﻿@model ProfileViewModel
+@if (Model.selected_service != null)
+{
+    <table class="table table-bordered  table-responsive-sm">
+        <tbody>
+            <tr>
+                <td>@Model.selected_service.TypeOfService</td>
+            </tr>
+        </tbody>
+    </table>
+}
+

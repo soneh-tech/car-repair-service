@@ -1,0 +1,11 @@
+﻿@model ProfileViewModel
+@if (Model.selected_car != null)
+{
+    <table class="table table-bordered  table-responsive-sm">
+        <tbody>
+            <tr>
+                <td>@Model.selected_car.Make @Model.selected_car.Model @Model.selected_car.Year</td>
+            </tr>
+        </tbody>
+    </table>
+}

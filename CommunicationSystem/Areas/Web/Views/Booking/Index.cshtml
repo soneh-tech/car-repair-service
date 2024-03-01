@@ -1,0 +1,86 @@
+﻿  @model BookingViewModel
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a asp-controller="home" asp-action="index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarServ</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a asp-controller="home" asp-action="index" class="nav-item nav-link">Home</a>
+            <a asp-controller="about" asp-action="index" class="nav-item nav-link">About</a>
+            <a asp-controller="service" asp-action="index" class="nav-item nav-link">Services</a>
+            <a asp-controller="contact" asp-action="index" class="nav-item nav-link">Contact</a>
+        </div>
+        <a asp-controller="booking" asp-action="index" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+    </div>
+</nav>
+<!-- Navbar End -->
+<!-- Booking Start -->
+<div class="container-fluid bg-secondary booking my-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row gx-5">
+            <div class="col-lg-12">
+                <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn" data-wow-delay="0.6s">
+                    <h1 class="text-white mb-4">Diagnose Your Issue</h1>
+                    <div class="row g-3">
+                        <div class="col-6 col-sm-6">
+                            <select id="drp_car_model" class="form-select border-0" style="height: 55px;">
+                                <option selected value="-1">Choose Your Car Model</option>
+                                @foreach (var car in Model.Cars)
+                                {
+                                    <option value="@car.Model">@car.Make @car.Model @car.Year</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            <select id="drp_service_type" class="form-select border-0" style="height: 55px;">
+                                <option selected value="-1">Choose Your Service Type</option>
+                                @foreach (var service in Model.ServiceTypes)
+                                {
+                                    <option value="@service.TypeOfService">@service.TypeOfService</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-secondary w-100 py-3" id="btn_find" type="button">Find Specialists</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+<!-- Team Start -->
+
+
+        <div id="content_div">
+            <partial name="_SpecialistPartialView" model="Model" />
+        </div>
+
+
+<!-- Team End -->
+@section Scripts {
+    <script type="text/javascript">
+
+        $("#btn_find").on("click", function () {
+            let carmodel = $("#drp_car_model").val();
+            let servicetype = $("#drp_service_type").val();
+            if (carmodel != "-1" && servicetype != "-1") {
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "Get",
+                        url: "@Url.Action("FindSpecialists")",
+                        data: { carmodel: $("#drp_car_model").val(), servicetype: $("#drp_service_type").val() },
+                        success: function (result) { $("#content_div").html(result); },
+                        error: function (err) { alert("no success"); }
+                    });
+                });
+            }
+        });
+
+    </script>
+}
