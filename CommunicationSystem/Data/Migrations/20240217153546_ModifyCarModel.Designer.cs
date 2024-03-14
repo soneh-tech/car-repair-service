@@ -184,7 +184,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EngineerID"));
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FacebookHandle")
@@ -215,7 +215,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("EngineerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Engineers");
                 });
@@ -261,7 +261,7 @@ namespace CommunicationSystem.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FullName")
@@ -273,7 +273,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("OwnerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Owners");
                 });
@@ -530,11 +530,11 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Models.Engineer", b =>
                 {
-                    b.HasOne("CommunicationSystem.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CommunicationSystem.Models.Message", b =>
@@ -558,11 +558,11 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Models.Owner", b =>
                 {
-                    b.HasOne("CommunicationSystem.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CommunicationSystem.Models.ServiceHistory", b =>

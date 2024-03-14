@@ -108,11 +108,7 @@ namespace CommunicationSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OwnerID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OwnerID1")
+                    b.Property<int>("OwnerID")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -125,7 +121,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasIndex("EngineerID");
 
-                    b.HasIndex("OwnerID1");
+                    b.HasIndex("OwnerID");
 
                     b.ToTable("Appointments");
                 });
@@ -162,7 +158,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EngineerID"));
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CarID")
@@ -199,7 +195,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("EngineerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("CarID");
 
@@ -249,7 +245,7 @@ namespace CommunicationSystem.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FullName")
@@ -261,7 +257,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("OwnerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Owners");
                 });
@@ -475,7 +471,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasOne("CommunicationSystem.Areas.Auth.Models.Owner", "Owner")
                         .WithMany("Appointments")
-                        .HasForeignKey("OwnerID1")
+                        .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -488,9 +484,9 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.Engineer", b =>
                 {
-                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("CommunicationSystem.Areas.Auth.Models.Car", "Car")
                         .WithMany("Specialists")
@@ -500,7 +496,7 @@ namespace CommunicationSystem.Data.Migrations
                         .WithMany("Engineers")
                         .HasForeignKey("ServiceTypeID");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Car");
 
@@ -528,11 +524,11 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.Owner", b =>
                 {
-                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.ServiceHistory", b =>

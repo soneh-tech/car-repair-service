@@ -165,7 +165,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EngineerID"));
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("CarID")
@@ -202,7 +202,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("EngineerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("CarID");
 
@@ -252,7 +252,7 @@ namespace CommunicationSystem.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AppuserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FullName")
@@ -264,7 +264,7 @@ namespace CommunicationSystem.Data.Migrations
 
                     b.HasKey("OwnerID");
 
-                    b.HasIndex("AppuserId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Owners");
                 });
@@ -491,9 +491,9 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.Engineer", b =>
                 {
-                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("CommunicationSystem.Areas.Auth.Models.Car", "Car")
                         .WithMany("Specialists")
@@ -503,7 +503,7 @@ namespace CommunicationSystem.Data.Migrations
                         .WithMany("Engineers")
                         .HasForeignKey("SpecialityServiceTypeID");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Car");
 
@@ -531,11 +531,11 @@ namespace CommunicationSystem.Data.Migrations
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.Owner", b =>
                 {
-                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "Appuser")
+                    b.HasOne("CommunicationSystem.Areas.Auth.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppuserId");
+                        .HasForeignKey("AppUserId");
 
-                    b.Navigation("Appuser");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("CommunicationSystem.Areas.Auth.Models.ServiceHistory", b =>

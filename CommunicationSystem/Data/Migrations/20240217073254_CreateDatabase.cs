@@ -199,14 +199,14 @@ namespace CommunicationSystem.Data.Migrations
                     YearOfExperience = table.Column<int>(type: "int", nullable: true),
                     WorkShopAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppuserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Engineer", x => x.EngineerID);
                     table.ForeignKey(
-                        name: "FK_Engineer_AspNetUsers_AppuserId",
-                        column: x => x.AppuserId,
+                        name: "FK_Engineer_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -220,14 +220,14 @@ namespace CommunicationSystem.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AppuserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Owner", x => x.OwnerID);
                     table.ForeignKey(
-                        name: "FK_Owner_AspNetUsers_AppuserId",
-                        column: x => x.AppuserId,
+                        name: "FK_Owner_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -419,9 +419,9 @@ namespace CommunicationSystem.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Engineer_AppuserId",
+                name: "IX_Engineer_AppUserId",
                 table: "Engineer",
-                column: "AppuserId");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EngineerServiceType_SpecialityServiceTypeID",
@@ -439,9 +439,9 @@ namespace CommunicationSystem.Data.Migrations
                 column: "OwnerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Owner_AppuserId",
+                name: "IX_Owner_AppUserId",
                 table: "Owner",
-                column: "AppuserId");
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ServiceHistories_CarID",

@@ -11,7 +11,7 @@
         public string FullName { get; set; }
         public string? Address { get; set; }
         public string Id { get; set; }
-        public AppUser? Appuser { get; set; }
+        public AppUser? AppUser { get; set; }
         public List<Appointment>? Appointments { get; set; }
         public List<Message>? Messages { get; set; }
         public List<ServiceHistory>? ServiceHistories { get; set; }
@@ -30,7 +30,7 @@
         public int? CarID { get; set; }
         public int? ServiceTypeID { get; set; }
         public string Id { get; set; }
-        public AppUser? Appuser { get; set; }
+        public AppUser? AppUser { get; set; }
         public ServiceType? Speciality { get; set; }
         public Car? Car { get; set; }
         public List<Appointment>? Appointments { get; set; }
@@ -56,7 +56,7 @@
         public virtual Car? Car { get; set; }
         public int EngineerID { get; set; }
         public virtual Engineer? Engineer { get; set; }
-        public string OwnerID { get; set; }
+        public int OwnerID { get; set; }
         public virtual Owner? Owner { get; set; }
     }
     public class Message

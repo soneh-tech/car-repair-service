@@ -6,7 +6,7 @@ namespace CommunicationSystem.Repository
         public Task<IEnumerable<Engineer>> FindSpecialists(string carmodel, string servicetype);
         public Task<ServiceType?> GetService(string servicetype);
         public Task<IEnumerable<ServiceType>> GetServiceTypes();
-        public Task<bool> ModifyEngineerProfile(int engineerID, ServiceType? selected_service, Car selected_car);
+        public Task<bool> ModifyEngineerProfile(int engineerID, string image_url, ServiceType? selected_service, Car selected_car);
     }
     public class ServiceTypeRepository : IServiceType
     {
@@ -35,7 +35,7 @@ namespace CommunicationSystem.Repository
             return await context.ServiceTypes.ToListAsync();
         }
 
-        public async Task<bool> ModifyEngineerProfile(int engineerID, ServiceType? selected_service, Car selected_car)
+        public async Task<bool> ModifyEngineerProfile(int engineerID,string image_url, ServiceType? selected_service, Car selected_car)
         {
             bool status;
             try
@@ -45,6 +45,7 @@ namespace CommunicationSystem.Repository
                 var car = await context.Cars.Where(x => x.Model == selected_car.Model).FirstOrDefaultAsync();
                 engineer.CarID = car.CarID;
                 engineer.ServiceTypeID = speciality.ServiceTypeID;
+                engineer.ImageURL = image_url;
                 context.Engineers.Update(engineer);
                 await context.SaveChangesAsync();
                 status = true;

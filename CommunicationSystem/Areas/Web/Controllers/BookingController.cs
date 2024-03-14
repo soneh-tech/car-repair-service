@@ -5,18 +5,28 @@ namespace CommunicationSystem.Controllers
     public class BookingController : Controller
     {
         public IServiceType serviceType;
+        public IEngineer engineer;
+        IOwner owner;
+        public IAppointment appointment;
         public ICar car;
         private readonly SignInManager<AppUser> signInManager;
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         public BookingController(IServiceType serviceType,
+            IOwner owner,
+            IAppointment appointment,
+            IEngineer engineer,
             ICar car,
              UserManager<AppUser> userManager,
              RoleManager<IdentityRole> roleManager,
             SignInManager<AppUser> signInManager)
         {
             this.car = car;
+            this.owner = owner;
+            this.appointment = appointment;
             this.serviceType = serviceType;
+            this.engineer = engineer;
+            this.appointment = appointment;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.signInManager = signInManager;
@@ -40,6 +50,26 @@ namespace CommunicationSystem.Controllers
             var model = new BookingViewModel { Specialists = groupedSpecialists };
             return PartialView("_SpecialistPartialView", model);
 
+        }
+
+        public async Task<IActionResult> ViewDetails(string id)
+        {
+            var model = await engineer.GetEngineer(id);
+            ViewBag.CarID = model.CarID;
+            return View(model);
+        }
+        public async Task<IActionResult> BookAppointment(string id,int carID)
+        {
+           var engr = await engineer.GetEngineer(id);
+            if (signInManager.IsSignedIn(User))
+            {
+                var user = await userManager.FindByEmailAsync(User.Identity.Name);
+                var car_owner = await owner.GetOwner(user.Id);
+                var model = await appointment.BookAppointment(engr.EngineerID, car_owner.OwnerID,carID);
+
+                return RedirectToAction("index");
+            }
+            return Redirect("/auth/account/index");
         }
     }
 }

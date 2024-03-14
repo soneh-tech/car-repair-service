@@ -8,6 +8,7 @@
         public IEnumerable<ServiceType>? services { get; set; }
         public Car? selected_car { get; set; }
         public ServiceType? selected_service { get; set; }
+        public IFormFile? Photo { get; set; }
     }
-  
+
 }

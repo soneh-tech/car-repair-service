@@ -1,0 +1,43 @@
+﻿@inject SignInManager<AppUser> signInManager;
+@model Engineer
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="text-primary text-uppercase">// @Model.FullName //</h6>
+            <h1 class="mb-5">Technicians Profile</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid" src="~/img/@Model.ImageURL" alt="">
+                        <div class="team-overlay position-absolute start-0 top-0 w-100 h-100">
+                            <a class="btn btn-square mx-1" href="@Model.FacebookHandle"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="@Model.TwitterHandle"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square mx-1" href="@Model.InstagramHandle"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-light text-center p-4">
+                        <h5 class="fw-bold mb-0">@Model.FullName</h5>
+                        @if (Model.Speciality != null)
+                        {
+                            <small>
+                                @Model.Speciality.TypeOfService
+                            </small>
+                        }
+                        <br/>
+                        <small>
+                            @Model.YearOfExperience Years of Experience
+                        </small>
+                        <br/>
+                        <small>
+                           visit my workshop at : @Model.WorkShopAddress
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+            <h5 class="fw-bold mb-0" align="center"><a asp-route-id="@Model.Id" asp-route-carID="@ViewBag.CarID" asp-controller="booking" asp-area="web" asp-action="bookappointment" class="btn btn-primary">Book Appointment</a></h5>
+    </div>
+</div>

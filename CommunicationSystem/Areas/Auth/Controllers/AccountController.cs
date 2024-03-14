@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Build.Framework.Profiler;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace CommunicationSystem.Areas.Auth.Controllers
 {
@@ -7,15 +8,17 @@ namespace CommunicationSystem.Areas.Auth.Controllers
     {
         public IServiceType serviceType;
         public ICar car;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IAccount account;
         private readonly SignInManager<AppUser> signInManager;
         private ProfileViewModel profileViewModel = new();
 
-        public AccountController(IAccount account, IServiceType serviceType,
+        public AccountController(IWebHostEnvironment hostingEnvironment, IAccount account, IServiceType serviceType,
             ICar car, SignInManager<AppUser> signInManager)
         {
             this.car = car;
             this.serviceType = serviceType;
+            this.hostingEnvironment = hostingEnvironment;
             this.account = account;
             this.signInManager = signInManager;
         }
@@ -29,14 +32,22 @@ namespace CommunicationSystem.Areas.Auth.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Index(UserDTO user)
+        public async Task<IActionResult> Index(UserDTO user, string? returnUrl)
         {
             if (ModelState.IsValid)
             {
+
                 var result = await account.AuthenticateUser(user);
                 if (result is "engineer" or "owner")
                 {
-                    return RedirectToAction("Index", "Dashboard");
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Appointment");
+                    }
                 }
                 else
                 {
@@ -114,11 +125,26 @@ namespace CommunicationSystem.Areas.Auth.Controllers
             }
 
         }
+        [HttpPost]
+        private async Task<string> ProcessedPhoto(ProfileViewModel model)
+        {
+            string uniqueFile = string.Empty;
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "img");
+                uniqueFile = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFile);
+                using (var filestream = new FileStream(filePath, FileMode.Create))
+                { await model.Photo.CopyToAsync(filestream); }
+            }
+            return uniqueFile;
+        }
         public async Task<IActionResult> UpdateProfile(ProfileViewModel model)
         {
             if (signInManager.IsSignedIn(User))
             {
-               await serviceType.ModifyEngineerProfile(model.enginner.EngineerID, model.selected_service, model.selected_car);
+                var image_url = await ProcessedPhoto(model);
+                await serviceType.ModifyEngineerProfile(model.enginner.EngineerID, image_url,model.selected_service, model.selected_car);
                 return RedirectToAction("profile");
             }
             else

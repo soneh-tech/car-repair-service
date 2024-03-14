@@ -19,7 +19,7 @@ namespace CommunicationSystem.Data.Migrations
                 table: "Appointments");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Engineer_AspNetUsers_AppuserId",
+                name: "FK_Engineer_AspNetUsers_AppUserId",
                 table: "Engineer");
 
             migrationBuilder.DropForeignKey(
@@ -35,7 +35,7 @@ namespace CommunicationSystem.Data.Migrations
                 table: "Messages");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Owner_AspNetUsers_AppuserId",
+                name: "FK_Owner_AspNetUsers_AppUserId",
                 table: "Owner");
 
             migrationBuilder.DropForeignKey(
@@ -63,14 +63,14 @@ namespace CommunicationSystem.Data.Migrations
                 newName: "Engineers");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Owner_AppuserId",
+                name: "IX_Owner_AppUserId",
                 table: "Owners",
-                newName: "IX_Owners_AppuserId");
+                newName: "IX_Owners_AppUserId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Engineer_AppuserId",
+                name: "IX_Engineer_AppUserId",
                 table: "Engineers",
-                newName: "IX_Engineers_AppuserId");
+                newName: "IX_Engineers_AppUserId");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Owners",
@@ -99,9 +99,9 @@ namespace CommunicationSystem.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Engineers_AspNetUsers_AppuserId",
+                name: "FK_Engineers_AspNetUsers_AppUserId",
                 table: "Engineers",
-                column: "AppuserId",
+                column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id");
 
@@ -130,9 +130,9 @@ namespace CommunicationSystem.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Owners_AspNetUsers_AppuserId",
+                name: "FK_Owners_AspNetUsers_AppUserId",
                 table: "Owners",
-                column: "AppuserId",
+                column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id");
 
@@ -165,7 +165,7 @@ namespace CommunicationSystem.Data.Migrations
                 table: "Appointments");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Engineers_AspNetUsers_AppuserId",
+                name: "FK_Engineers_AspNetUsers_AppUserId",
                 table: "Engineers");
 
             migrationBuilder.DropForeignKey(
@@ -181,7 +181,7 @@ namespace CommunicationSystem.Data.Migrations
                 table: "Messages");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Owners_AspNetUsers_AppuserId",
+                name: "FK_Owners_AspNetUsers_AppUserId",
                 table: "Owners");
 
             migrationBuilder.DropForeignKey(
@@ -209,14 +209,14 @@ namespace CommunicationSystem.Data.Migrations
                 newName: "Engineer");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Owners_AppuserId",
+                name: "IX_Owners_AppUserId",
                 table: "Owner",
-                newName: "IX_Owner_AppuserId");
+                newName: "IX_Owner_AppUserId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_Engineers_AppuserId",
+                name: "IX_Engineers_AppUserId",
                 table: "Engineer",
-                newName: "IX_Engineer_AppuserId");
+                newName: "IX_Engineer_AppUserId");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Owner",
@@ -245,9 +245,9 @@ namespace CommunicationSystem.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Engineer_AspNetUsers_AppuserId",
+                name: "FK_Engineer_AspNetUsers_AppUserId",
                 table: "Engineer",
-                column: "AppuserId",
+                column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id");
 
@@ -276,9 +276,9 @@ namespace CommunicationSystem.Data.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Owner_AspNetUsers_AppuserId",
+                name: "FK_Owner_AspNetUsers_AppUserId",
                 table: "Owner",
-                column: "AppuserId",
+                column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id");
 

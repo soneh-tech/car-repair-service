@@ -27,7 +27,7 @@ namespace CommunicationSystem.Repository
         }
         public async Task<Owner> GetOwner(string id)
         {
-            var result = await context.Owners.Where(x => x.Id == id).Include(a=>a.Appuser).SingleOrDefaultAsync();
+            var result = await context.Owners.Where(x => x.Id == id).Include(a=>a.AppUser).SingleOrDefaultAsync();
             return result;
         }
     }
